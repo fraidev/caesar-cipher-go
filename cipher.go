@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
 type Cipher struct{}
 
@@ -23,7 +26,16 @@ func shift(input string, shiftCount int, encryptType EncryptType) string {
 
 	var sb strings.Builder
 	for _, char := range input {
-		shiftedChar := Alphabet[modulos(operation(Alphabet.GetIndex(char)), 26)]
+		shiftedChar := char
+
+		if unicode.IsLetter(char) {
+			if unicode.IsUpper(char) {
+				shiftedChar = Alphabet[modulos(operation(Alphabet.GetIndex(char)), 26)]
+			} else {
+				shiftedChar = unicode.ToLower(Alphabet[modulos(operation(Alphabet.GetIndex(unicode.ToUpper(char))), 26)])
+			}
+		}
+
 		sb.WriteRune(shiftedChar)
 	}
 	return sb.String()

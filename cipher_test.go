@@ -10,7 +10,10 @@ func TestCipher_Decrypt(t *testing.T) {
 		want string
 	}{
 		{input:"ABC", want:"DEF"},
+		{input:"abc", want:"def"},
 		{input:"XYZ", want:"ABC"},
+		{input:"xYz", want:"aBc"},
+		{input:"x$z", want:"a$c"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.input + " must be " + tt.want, func(t *testing.T) {
@@ -28,7 +31,10 @@ func TestCipher_Encrypt(t *testing.T) {
 		want string
 	}{
 		{input:"DEF", want:"ABC"},
+		{input:"def", want:"abc"},
 		{input:"ABC", want:"XYZ"},
+		{input:"aBc", want:"xYz"},
+		{input:"a$c", want:"x$z"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.input + " must be " + tt.want, func(t *testing.T) {

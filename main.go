@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	chipher := Cipher{}
 
-	result := chipher.Encrypt("ABC")
+	result := chipher.Encrypt("abc")
 
 	fmt.Println(result)
 }
